@@ -1,0 +1,85 @@
+<html>
+<head></head>
+<body ng-app="myApp">
+  <h1>Hello World?!</h1>
+
+
+  <div ng-controller="myController">
+    <a href="" ng-click="foo()">Call foo.</a>
+    <my-directive stuff="message"></my-directive>
+
+    <input type="text" stuff="What is your name?" />
+
+    <select>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+    </select>
+  </div>
+
+
+<script src='../bower_components/angular/angular.js'></script>
+<script>
+
+// declare an app
+var myApp = angular
+              .module('myApp', []);
+
+
+
+myApp.service('myService', [
+  function() {
+    //console.log('myService: hello world');
+    // Object
+    // properties, methods (key, value pairs)
+    return {
+      foo: function() {
+        console.log('You called foo.');
+      }
+    }
+  }]);
+
+
+
+// create a controller
+myApp.controller('myController', [
+  '$scope',
+  'myService',
+  function($scope, myService) {
+    // console.log('myController: hello world');
+    // console.log(myService);
+    myService.foo();
+
+    // secret stuff, variables defined inside the controller
+    var foo = 1;
+    var bar = 'Ben';
+    var baz = 'Monkeys';
+
+    // public stuff, whatever the controller adds to $scope
+    $scope.message = 'stuff and things';
+    $scope.foo = function() {
+      alert('FOOOO!!!');
+    };
+    $scope.bar = "bar";
+
+  }]);
+
+
+myApp.directive('myDirective', [
+  function() {
+    //console.log('myDirective: hello world');
+    return {
+      restrict: 'AE', // E = element, A = attribute....
+      //template: '<div>Hello World.</div>',
+      templateUrl: 'views/directives/my-directive.html',
+      scope: {
+        stuff: "="
+      }
+    }
+  }
+]);
+
+
+</script>
+</body>
+</html>
